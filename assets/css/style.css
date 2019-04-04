@@ -1,0 +1,17 @@
+body {
+    background: #9acebf;
+    color: whitesmoke;
+}
+
+.jumbotron {
+    background: #0b2432;
+}
+
+.container {
+    background: whitesmoke;
+  
+}
+
+#addTrain {
+    margin-bottom: 10px;
+}
