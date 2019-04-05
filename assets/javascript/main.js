@@ -65,9 +65,15 @@
       console.log(snapshot.val().name);
       console.log(snapshot.val().destination);
       console.log(snapshot.val().frequency);
+// for or for each piece of info add to table
+    //   create 
   
-      // change html to display proper trains
-  
+      // update html to display proper trains
+    //   $("#train-name-display").text(snapshot.val().name);
+    
+      $("#myTable tr:last").after("<tr><td>" + snapshot.val().name + "</td><td>" + snapshot.val().destination + "</td><td>" + snapshot.val().frequency + "</td>");
+
+      // Add in error handler
   
   
     });
