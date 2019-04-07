@@ -26,7 +26,9 @@
     var name = "";
     var destination = "";
     var frequency = 0;
-    var time = "";
+// time = first time in
+    var time = "00:00";  
+
   
   // Submit button event listener
   $("#addTrain").on("click", function(event) {
@@ -46,7 +48,7 @@
       console.log(time);
           
           // and on firebase
-          database.ref().set({
+          database.ref().push({
               name: name,
               destination: destination,
               frequency: frequency,
@@ -65,16 +67,34 @@
       console.log(snapshot.val().name);
       console.log(snapshot.val().destination);
       console.log(snapshot.val().frequency);
-// for or for each piece of info add to table
-    //   create 
+      console.log(snapshot.val().time);
+// Calulate missing info
+    // Next Arrival
+    var firstTimeConverted = moment(time, "HH:mm").subtract(1, "years");
+    console.log(firstTimeConverted);
+
+    var currentTime = moment();
+    console.log("CURRENT TIME: " + moment(currentTime).format("hh:mm"));
+
+   var diffTime = moment().diff(moment(firstTimeConverted), "minutes");
+   console.log("DIFFERENCE IN TIME: " + diffTime);
+
+   var tRemainder = diffTime % frequency;
+   console.log(tRemainder);
+
+   var tMinutesTillTrain = frequency - tRemainder;
+    console.log("MINUTES TILL TRAIN: " + tMinutesTillTrain);
+
+    var nextTrain = moment().add(tMinutesTillTrain, "minutes");
+    console.log("ARRIVAL TIME: " + moment(nextTrain).format("hh:mm"));
+    // Minutes away
   
       // update html to display proper trains
-    //   $("#train-name-display").text(snapshot.val().name);
-    
-      $("#myTable tr:last").after("<tr><td>" + snapshot.val().name + "</td><td>" + snapshot.val().destination + "</td><td>" + snapshot.val().frequency + "</td>");
+      $("#myTable").after("<tr><td>" + snapshot.val().name + "</td><td>" + snapshot.val().destination + "</td><td>" + snapshot.val().frequency + "</td><td>" + moment(nextTrain).format("hh:mm") + "</td><td>" + tMinutesTillTrain + "</td></tr>");
 
       // Add in error handler
-  
+    //   function (errorObject) {
+    //     console.log("Errors handled: " + errorObject.code);
   
     });
   // function to access current time 
