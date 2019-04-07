@@ -4,8 +4,14 @@ body {
 }
 
 .jumbotron {
-    background: #0b2432;
+    background: url(../images/Melissa_Williams_Lab_PaperPhoto_00008.jpg), url(../images/Melissa_Williams_Lab_PaperPhoto_00008image-right.jpg);
+    background-position: left, right;
+    background-color: black;
     color: whitesmoke;
+    background-size: 35%, 35%;
+    background-repeat: no-repeat, no-repeat;
+   
+    /* overflow: */
 }
 
 .container {
