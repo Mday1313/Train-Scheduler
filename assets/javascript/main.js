@@ -71,7 +71,7 @@
       console.log(childSnapshot.val().time);
 // Calulate missing info
     // Next Arrival
-    var firstTimeConverted = moment(time, "HH:mm").subtract(1, "years");
+    var firstTimeConverted = moment(childSnapshot.val().time, "HH:mm").subtract(1, "years");
     console.log(firstTimeConverted);
 
     var currentTime = moment();
@@ -80,18 +80,19 @@
    var diffTime = moment().diff(moment(firstTimeConverted), "minutes");
    console.log("DIFFERENCE IN TIME: " + diffTime);
 
-   var tRemainder = diffTime % frequency;
+   var tRemainder = diffTime % childSnapshot.val().frequency;
    console.log(tRemainder);
 
-   var tMinutesTillTrain = frequency - tRemainder;
+   var tMinutesTillTrain = childSnapshot.val().frequency - tRemainder;
     console.log("MINUTES TILL TRAIN: " + tMinutesTillTrain);
 
     var nextTrain = moment().add(tMinutesTillTrain, "minutes");
     console.log("ARRIVAL TIME: " + moment(nextTrain).format("hh:mm"));
+    var nextTrainTime = moment(nextTrain).format("hh:mm")
   //   // Minutes away
   
       // update html to display proper trains
-      $("#myTable").after("<tr><td>" + childSnapshot.val().name + "</td><td>" + childSnapshot.val().destination + "</td><td>" + childSnapshot.val().frequency + "</td><td>" + moment(nextTrain).format("hh:mm") + "</td><td>" + tMinutesTillTrain + "</td></tr>");
+      $("#myTable").after("<tr><td>" + childSnapshot.val().name + "</td><td>" + childSnapshot.val().destination + "</td><td>" + childSnapshot.val().frequency + "</td><td>" + nextTrainTime + "</td><td>" + tMinutesTillTrain + "</td></tr>");
 
 
       // 
