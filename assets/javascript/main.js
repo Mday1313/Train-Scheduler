@@ -84,6 +84,10 @@
    console.log(tRemainder);
 
    var tMinutesTillTrain = childSnapshot.val().frequency - tRemainder;
+
+   if (tMinutesTillTrain === 1) {
+     tMinutesTillTrain = "Arriving";
+   }
     console.log("MINUTES TILL TRAIN: " + tMinutesTillTrain);
 
     var nextTrain = moment().add(tMinutesTillTrain, "minutes");

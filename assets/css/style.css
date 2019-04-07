@@ -1,5 +1,5 @@
 body {
-    background: #9acebf;
+    background: black;
     
 }
 
@@ -8,7 +8,7 @@ body {
     background-position: left, right;
     background-color: black;
     color: whitesmoke;
-    background-size: 35%, 35%;
+    background-size: 50%, 50%;
     background-repeat: no-repeat, no-repeat;
    
     /* overflow: */
