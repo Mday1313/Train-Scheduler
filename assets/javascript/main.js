@@ -23,7 +23,7 @@
 
   // Set initial variables for input fields
   
-    var name = "";
+  var name = "";
     var destination = "";
     var frequency = 0;
 // time = first time in
@@ -33,6 +33,7 @@
   // Submit button event listener
   $("#addTrain").on("click", function(event) {
   
+    
       // prevent refresh
       event.preventDefault();
   
@@ -42,10 +43,10 @@
       destination = $("#destination-input").val().trim();
       frequency = $("#frequency-input").val().trim();
       time = $("#time-input").val().trim();
-      console.log(name);
-      console.log(destination);
-      console.log(frequency);
-      console.log(time);
+      // console.log(name);
+      // console.log(destination);
+      // console.log(frequency);
+      // console.log(time);
           
           // and on firebase
           database.ref().push({
@@ -60,14 +61,14 @@
   
   
   // create listener to watch for Firebase changes and for loading initial setup 
-  database.ref().on("value", function(snapshot) {
+  database.ref().on("child_added", function(childSnapshot) {
       // console log snapshot.val() to be sure proper info is collected
       
-      console.log(snapshot.val());
-      console.log(snapshot.val().name);
-      console.log(snapshot.val().destination);
-      console.log(snapshot.val().frequency);
-      console.log(snapshot.val().time);
+      console.log(childSnapshot.val());
+       console.log(childSnapshot.val().name);
+      console.log(childSnapshot.val().destination);
+      console.log(childSnapshot.val().frequency);
+      console.log(childSnapshot.val().time);
 // Calulate missing info
     // Next Arrival
     var firstTimeConverted = moment(time, "HH:mm").subtract(1, "years");
@@ -87,14 +88,16 @@
 
     var nextTrain = moment().add(tMinutesTillTrain, "minutes");
     console.log("ARRIVAL TIME: " + moment(nextTrain).format("hh:mm"));
-    // Minutes away
+  //   // Minutes away
   
       // update html to display proper trains
-      $("#myTable").after("<tr><td>" + snapshot.val().name + "</td><td>" + snapshot.val().destination + "</td><td>" + snapshot.val().frequency + "</td><td>" + moment(nextTrain).format("hh:mm") + "</td><td>" + tMinutesTillTrain + "</td></tr>");
+      $("#myTable").after("<tr><td>" + childSnapshot.val().name + "</td><td>" + childSnapshot.val().destination + "</td><td>" + childSnapshot.val().frequency + "</td><td>" + moment(nextTrain).format("hh:mm") + "</td><td>" + tMinutesTillTrain + "</td></tr>");
 
+
+      // 
       // Add in error handler
-    //   function (errorObject) {
-    //     console.log("Errors handled: " + errorObject.code);
+    }, function (errorObject) {
+      console.log("Errors handled: " + errorObject.code);
   
     });
   // function to access current time 
