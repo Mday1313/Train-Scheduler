@@ -61,6 +61,10 @@
   
   
   // create listener to watch for Firebase changes and for loading initial setup 
+//  collect time from server
+  
+   // set interval for one minute to update page
+ 
   database.ref().on("child_added", function(childSnapshot) {
       // console log snapshot.val() to be sure proper info is collected
       
@@ -92,19 +96,22 @@
 
     var nextTrain = moment().add(tMinutesTillTrain, "minutes");
     console.log("ARRIVAL TIME: " + moment(nextTrain).format("hh:mm"));
-    var nextTrainTime = moment(nextTrain).format("hh:mm")
+    var nextTrainTime = moment(nextTrain).format("LT")
   //   // Minutes away
   
       // update html to display proper trains
       $("#myTable").after("<tr><td>" + childSnapshot.val().name + "</td><td>" + childSnapshot.val().destination + "</td><td>" + childSnapshot.val().frequency + "</td><td>" + nextTrainTime + "</td><td>" + tMinutesTillTrain + "</td></tr>");
 
-
+    
       // 
       // Add in error handler
     }, function (errorObject) {
       console.log("Errors handled: " + errorObject.code);
   
     });
+
+    
+ 
   // function to access current time 
       // update next arrival time every minute
       // update Minutes away every minute
