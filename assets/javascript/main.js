@@ -19,6 +19,10 @@ var frequency = 0;
 // time = first time in
 var time = "00:00";
 
+setTimeout(function(){
+  window.location.reload(true);
+}, 60000);
+
 // Submit button event listener
 $("#addTrain").on("click", function (event) {
 
